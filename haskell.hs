@@ -1,4 +1,5 @@
 import Data.Char
+import Data.List
 
 
 productFactorial :: Int -> Int 
@@ -14,3 +15,8 @@ smallestFactor n = foldr1 min small
 
 allDivisors :: Int -> [Int]
 allDivisors n = [x | x <- [1..n], n `mod` x == 0]
+
+isPrime :: Int -> Bool 
+isPrime n = 
+         if allDivisors n == [1,n] then True
+         else False
