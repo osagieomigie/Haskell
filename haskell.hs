@@ -114,3 +114,18 @@ mapTree f (Value a left right) = Value (f a) (mapTree f left) (mapTree f right)
 foldTree :: Num a => (a -> a -> a) -> a -> Tree a -> a
 foldTree f a Nil = 0 
 foldTree f a (Value b left right) = (f a b) + foldTree f a left + foldTree f a right 
+
+
+data LR = L | R
+        deriving (Eq, Show)
+        
+reachable :: String -> Road -> Bool                            
+reachable s (Fork left right) = 
+                             if (reachableHelper s left) then True 
+                              else (reachableHelper s right)
+
+reachableHelper :: String -> Road -> Bool 
+reachableHelper s (Fork left right) = reachable s (Fork left right)
+reachableHelper s (City a) 
+                    | (s == a ) = True
+                    | otherwise = False 
