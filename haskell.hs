@@ -103,3 +103,14 @@ collapse (Node left n right) =  foldr (:) (n:r) (l)
                where 
                  r = collapse right
                  l = collapse left
+
+-- map and fold tree function for a tree 
+data Tree a = Nil | Value a (Tree a) (Tree a)
+            deriving (Show)
+mapTree :: (a -> b) -> Tree a -> Tree b
+mapTree f Nil = Nil 
+mapTree f (Value a left right) = Value (f a) (mapTree f left) (mapTree f right)     
+
+foldTree :: Num a => (a -> a -> a) -> a -> Tree a -> a
+foldTree f a Nil = 0 
+foldTree f a (Value b left right) = (f a b) + foldTree f a left + foldTree f a right 
