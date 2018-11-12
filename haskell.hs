@@ -94,3 +94,12 @@ pascal 0 = [1]
 pascal n = 1:zipWith (+) mid (tail mid)++[1]
           where
             mid = pascal (n-1)
+
+-- Collapse an Ntree type to an array 
+data NTree = Leaf Int | Node NTree Int NTree
+collapse :: NTree -> [Int] 
+collapse (Leaf n) = n:[]
+collapse (Node left n right) =  foldr (:) (n:r) (l)
+               where 
+                 r = collapse right
+                 l = collapse left
